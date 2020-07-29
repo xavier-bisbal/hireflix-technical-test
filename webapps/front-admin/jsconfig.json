@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+      "target": "ES6",
+      "baseUrl": ".",
+      "lib": [
+          "dom",
+          "es2017"
+      ],
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "paths": {
+          "~/*": [
+              "node_modules/hireflix-components/modules/*"
+          ],
+          "*": [
+              "*",
+              "src/shared/*",
+              "src/server/*",
+              "src/client/*"
+          ]
+      },
+      "allowSyntheticDefaultImports": true,
+  },
+  "exclude": [
+      "dist",
+  ]
+} 

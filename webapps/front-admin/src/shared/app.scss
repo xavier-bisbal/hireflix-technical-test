@@ -1,0 +1,18 @@
+@import 'variables.scss';
+@import "~bulma/sass/base/_all.sass";
+
+html {
+  min-height: 100%;
+  width: 100%;
+}
+
+html, body, #react-app, .app {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.app {
+  justify-content: center;
+  align-items: center;
+}

@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "baseUrl": ".",
+        "lib": ["dom", "es2015", "es2017"],
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "paths": {
+          "*": [
+              "src/*",
+              "node_modules"
+          ]
+        },
+        "allowSyntheticDefaultImports": true,
+    },
+    "exclude": [
+        "dist",
+    ]
+  }
