@@ -47,7 +47,7 @@ const api = ({ endpoint = '/', data = undefined, options = {} }) => {
   });
 };
 
-const getPositionInfo = (positionId) => {
+const getPosition = (positionId) => {
   return api({
     endpoint: '/me',
     data: {
@@ -154,4 +154,4 @@ const inviteCandidate = (positionId, name, email, phone) => {
   });
 };
 
-export { getPositionInfo, getInterview, inviteCandidate };
+export { getPosition, getInterview, inviteCandidate };
