@@ -13,7 +13,7 @@ const startWebapp = () => {
     return;
   }
   webappStarted = true;
-  const webapp = spawn('npm', ['run', 'dev'], {
+  const webapp = spawn('npm.cmd', ['run', 'dev'], {
     cwd: path.resolve(__dirname, '..', 'webapps/front-admin')
   });
   webapp.stdout.on('data', (data) => {
@@ -26,7 +26,7 @@ const startApi = () => {
     return;
   }
   apiStarted = true;
-  const api = spawn('npm', ['run', 'dev'], {
+  const api = spawn('npm.cmd', ['run', 'dev'], {
     cwd: path.resolve(__dirname, '..', 'apis/middleware')
   });
   
@@ -40,10 +40,10 @@ const run = () => {
   let webappBuilds = 0;
   let apiBuilds = 0;
 
-  const webappWebpack = spawn('npm', ['run', 'watch'], {
+  const webappWebpack = spawn('npm.cmd', ['run', 'watch'], {
     cwd: path.resolve(__dirname, '..', 'webapps/front-admin')
   });
-  const apiWebpack = spawn('npm', ['run', 'watch'], {
+  const apiWebpack = spawn('npm.cmd', ['run', 'watch'], {
     cwd: path.resolve(__dirname, '..', 'apis/middleware')
   });
 
