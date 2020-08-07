@@ -67,7 +67,7 @@ const run = () => {
     }
   });
   apiWebpack.stdout.on('data', (data) => {
-    if (data.includes('Module build failed') && !logWebappWebpack) {
+    if (data.includes('Module build failed') && !logApiWebpack) {
       logApiWebpack = true;
       console.clear()
       console.error('------------------------- Error in Build ----------------------------')
