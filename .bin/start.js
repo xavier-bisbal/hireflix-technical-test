@@ -4,17 +4,31 @@ const stdoutStream = require('stdout-stream');
 
 let apiStarted = false;
 let webappStarted = false;
+let npm = /^win/.test(process.platform) ? 'npm.cmd' : 'npm';
+let apiPath = 'apis/middleware';
+let webappPath = 'webapps/front-admin';
 
-let logWebappWebpack = false;
-let logApiWebpack = false;
+const watchBuildErrorsAndStartLog = (data, shouldLogData, logStringTemplate) => {
+  if (data.includes('Module build failed') && !shouldLogData) {
+    shouldLogData = true;
+    console.clear()
+    console.error('------------------------- Error in Build ----------------------------')
+  }
+
+  if (shouldLogData) {
+    stdoutStream.write(logStringTemplate.replace('{0}', data));
+  }
+
+  return shouldLogData;
+}
 
 const startWebapp = () => {
   if (webappStarted) {
     return;
   }
   webappStarted = true;
-  const webapp = spawn('npm.cmd', ['run', 'dev'], {
-    cwd: path.resolve(__dirname, '..', 'webapps/front-admin')
+  const webapp = spawn(npm, ['run', 'dev'], {
+    cwd: path.resolve(__dirname, '..', webappPath)
   });
   webapp.stdout.on('data', (data) => {
     stdoutStream.write(`webapp | ${data}`);
@@ -26,8 +40,8 @@ const startApi = () => {
     return;
   }
   apiStarted = true;
-  const api = spawn('npm.cmd', ['run', 'dev'], {
-    cwd: path.resolve(__dirname, '..', 'apis/middleware')
+  const api = spawn(npm, ['run', 'dev'], {
+    cwd: path.resolve(__dirname, '..', apiPath)
   });
   
   api.stdout.on('data', (data) => {
@@ -38,25 +52,19 @@ const startApi = () => {
 const run = () => {
   console.log('start Watchers');
   let webappBuilds = 0;
-  let apiBuilds = 0;
 
-  const webappWebpack = spawn('npm.cmd', ['run', 'watch'], {
-    cwd: path.resolve(__dirname, '..', 'webapps/front-admin')
+  let logWebappWebpack = false;
+  let logApiWebpack = false;
+
+  const webappWebpack = spawn(npm, ['run', 'watch'], {
+    cwd: path.resolve(__dirname, '..', webappPath)
   });
-  const apiWebpack = spawn('npm.cmd', ['run', 'watch'], {
-    cwd: path.resolve(__dirname, '..', 'apis/middleware')
+  const apiWebpack = spawn(npm, ['run', 'watch'], {
+    cwd: path.resolve(__dirname, '..', apiPath)
   });
 
   webappWebpack.stdout.on('data', (data) => {
-    if (data.includes('Module build failed') && !logWebappWebpack) {
-      logWebappWebpack = true;
-      console.clear()
-      console.error('------------------------- Error in Build ----------------------------')
-    }
-
-    if (logWebappWebpack) {
-      stdoutStream.write(`webapp | ${data}`);
-    }
+    logWebappWebpack = watchBuildErrorsAndStartLog(data, logWebappWebpack, "webapp | {0}")
 
     if (data.includes('Finished building')) {
       webappBuilds += 1;
@@ -67,17 +75,10 @@ const run = () => {
     }
   });
   apiWebpack.stdout.on('data', (data) => {
-    if (data.includes('Module build failed') && !logApiWebpack) {
-      logApiWebpack = true;
-      console.clear()
-      console.error('------------------------- Error in Build ----------------------------')
-    }
-    if (logApiWebpack) {
-      stdoutStream.write(`api | ${data}`);
-    }
+    logApiWebpack = watchBuildErrorsAndStartLog(data, logApiWebpack, "api | {0}")
     if (data.includes('Built at')) {
+      logApiWebpack = false;
       startApi();
-      apiBuilds += 1;
     }
   });
 }
