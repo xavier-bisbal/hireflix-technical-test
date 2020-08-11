@@ -9,6 +9,7 @@ const RoundedInitials = ({ name }) => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            backgroundColor: '#E1E1E1',
             width: '120px',
             height: '120px',
             borderRadius: '100px',
