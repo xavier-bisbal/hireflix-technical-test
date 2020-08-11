@@ -1,50 +1,106 @@
-# Hireflix Technical test
+# My thought diary
 
-Thanks for taking your time to do our technical test. For this test we would like you to create a small application that simulate a small part of our application, to do that we will provide you a boilerplate of 2 services
+- 07.08.2020 11:29
 
-- **Front-Admin**: This will be a React.js front end application, where you will be asked to update to display the list of candidates for a given position on our system
-- **Api-Middleware**: This will be a small APi rest with part of the CRUD needed for the front end to work, this API already has the method to connect with our API.
+I read carefully the Hireflix Technical test specs to clearly understand what has to be done and the time frame
+First I have to read again the specs to be sure I don't miss anything
+Second I will review the existing code
+Third I will elaborate a first architecture plan
+Fourth I have to refresh the basics of react and install the ide
 
-## Setup
+First things first, let's grab a cup of coffee
 
-For this test you will act as the developer working for a company who wants to integrate with Hireflix. In order to do that you will have to register, verify your account and get the API keys for your middleware. It would be useful to familiarize yourself with the Hireflix product and what we do.
+- 07.08.2020 11:59
 
-1. Register an Account on [Hireflix](https://hireflix.com/register), an follow the register process, (Please remember to validate your email address).
+I have to keep in mind to build reusable components
 
-1. Go To [My Account -> Api Keys](https://admin.hireflix.com/en/my-account/api-keys) and create a new API KEY, you will need it during the setup of the API service
+- 07.08.2020 12:09
 
-1. Create a position (a new job offer in our system). Create a dummy role (for example, CTO for Hireflix!) and add two questions you would typically find in a job interview.
+As my computer is brand new I have to install an ide and node.js
+After a quick investigation, I installed Visual Studio Code
 
-1. Fork this repository and add tech@hireflix.com as a collaborator so we can review your test
+- 07.08.2020 13:16
 
-1. Inside each service you will need to create a copy of the `.env.dist` and named it `.env`, in this file change ENV variables needed for each system to work correctly
+Open project and install all dependencies (npm install)
 
-    On `apis/middleware` add the API KEY created on step 2 and the ID of the position created un step 3 (you can find the position id on the URL when navigating to the position inside Hireflix https://admin.hireflix.com/en/jobs/xxxxxxxx), should have the MongoId (ObjectID) format
+- 07.08.2020 13:34
 
-1. Install the dependencies of each service
+I cannot make it run (error). I will try to create a Hireflix account and follow the steps in the technical specs
 
-1. After finish the installation and setup of each service you can run `npm start` **on the root of this repository (INSTEAD OF INSIDE OF EACH SERVICE)** to start both services on dev mode (This will also start a watcher that will transpile your code after any change).
+- 07.08.2020 14:09
 
-This will start both services. the **frontend on the port 3000** and the **api on the port 3001**
+After some googling I found the reason it didn't run and execution error was it is prepared to be run in a linux os
 
-## What we want from you
+- 07.08.2020 14:44
 
-- Create a frontend application using react, you can see the mockups [here](https://www.figma.com/file/N6aQ0euQDKU8AbMnxBbyWc/Design?node-id=0%3A1). We are not specting a pixel perfect front, but attention to details will by taken account.
+Let's review all code
+After reviewing the code I decided to refactor start.js to avoid duplicated code
 
-- Create the neccesary endpoints on the API service that will be need it by the front to archive this design.
+- 07.08.2020 17:24
 
-- Dockerize both services
+I had a look to the api project and I found getInterview implementation was missing. I decided to implement it copying the other similar methods
+Let's install postman to speed up try & error process while investigating hireflix api ...
+After some time investigating using inspect and postman I get the query for getInvertiew
+Let's code it
+I should have asked for api documentation > I will send an email asking for help
 
-- Create the kubernetes resource definitions needed it to deploy this application on kubernetes
+- 07.08.2020 19:29
 
-- You have up to a week to finish this assignment, if for any reason you need more time please let us now.
+Looks like I have to use expressjs to route the api calls
 
-- Please add a file or README explaining your thinking process that led to your answer. Why you used one module or another or why you chose one pattern or another.
+- 09.08.2020 10:34
 
-- Each service has the necessary libraries to complete the task, you are free to add any library but add an explaination of why you think the library was neccesary
+I got an email from Antonio seggesting me to use https://www.graphqlbin.com/
+I got the api schema, bingo!
+Let's investigate now the UI and Bulma framework
 
-- Try to make this test to reflect your real skills and how you feel comfortable coding. Think about best practices, code quality, maintainability, etc. We might or might not apply chaos monkey practices with your code :D
+- 09.08.2020 11:26
 
-- Feel free to ask any questions you might have. Once you submit the test we will review it and we will schedule an interview to talk about the code!
+Building some UI components
+Resizing the window works but it needs to be improved because with some sizes it does not display all cards
 
-May the Force be with you
+- 10.08.2020 21.50
+
+Finishing UI
+The invite modal should check the data typed by the user > TO-DO
+
+- 11.08.2020 13.00
+
+Let's refactor the code to make it more clear and reusable
+
+- 11.08.2020 16:36
+
+Now I will investigate dockerizing the app
+
+- 11.08.2020 18:03
+
+It was easier than expected. I followed a tutorial and it worked the first time (that does not happen often)
+
+After writing a couple of documents I have to run this commands:
+
+docker build -t sample:dev .
+docker run -it --rm -v ${PWD}:/app -v /app/node_modules -p 80:3000 -p 3001:3001 -e CHOKIDAR_USEPOLLING=true sample:dev
+
+- 11.08.2020 21:12
+
+Adding play button
+Refreshing UI after adding inviting candidate
+Doing some rescaling test
+Fixing some UI issues
+
+- 12.08.2020 0:33
+
+Writing to-do and final conclusions
+Pushing all commits
+
+# TO-DO (pending improvements):
+
+Move all inline styles to css file or variables
+Make the DetailHeader (back button + title component) more flexible to support candidate list header (Title + button) so both views can share the component
+Add validations to invite form (also some UI tips and icons would be nice to have)
+
+# Conclusions:
+
+I prefer react than plain js, html, css
+A lot to learn to be efficient and clean :) I would like to learn more
+
