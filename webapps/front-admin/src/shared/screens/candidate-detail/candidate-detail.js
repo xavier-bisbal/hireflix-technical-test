@@ -42,11 +42,11 @@ const CandidateDetail = () => {
           <Tile>
             <Tile kind="parent" size={5}>
               <QuestionSelector questions={interview.questions} onSelect={(question) => { setSelectedQuestion(question) }} />
-              
             </Tile>
-            <Tile kind="parent" size={7}>
-              <div id="interview-video" style={{ paddingLeft: '100px' }}>
-                  <VideoComponent answerUrl={(selectedQuestion.answer || {}).url} answerThumbnail={(selectedQuestion.answer || {}).thumbnail} />
+            <Tile kind="parent" size={1} />
+            <Tile kind="parent" size={6}>
+              <div id="interview-video">
+                <VideoComponent answerUrl={(selectedQuestion.answer || {}).url} answerThumbnail={(selectedQuestion.answer || {}).thumbnail} />
                 <div>
                   <Heading size={3}>{selectedQuestion.description}</Heading>
                 </div>
