@@ -7,7 +7,7 @@ const QuestionSelector = ({ questions, onSelect }) => {
   const [selectedQuestion, setSelectedQuestion] = useState({});
 
   return (
-    <Card style={{ flex: '1', borderRadius: '15px' }}>
+    <Card style={{ flex: '1', borderRadius: '15px', minWidth: '300px' }}>
       <div style={{ flex: '1', display: 'flex', justifyContent: 'center', marginBottom: '20px'}}>
         <Heading>Questions</Heading>
       </div>
@@ -19,13 +19,13 @@ const QuestionSelector = ({ questions, onSelect }) => {
           var pstyle = {}
           if (question.id === selectedQuestion.id || (!selectedQuestion.id && index===0))
           {
-              listyle.backgroundColor = '#3f4bff';
+              listyle.backgroundColor = '#4c6ef5';
               pstyle.color = 'white';
           }
           return (
             <li key={index} style={listyle} onClick={() => { setSelectedQuestion(question); onSelect(question); }}>
             <div style={{display: 'flex'}}>
-                <div id="question-card" style={{
+              <div id="question-card" style={{
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -39,12 +39,12 @@ const QuestionSelector = ({ questions, onSelect }) => {
                 backgroundSize: '100% 100%',
                 backgroundRepeat: 'false',
                 margin: '10px'
-                }}
-                />
-                <div style={{margin: '10px'}}>
+              }}
+              />
+              <div style={{margin: '10px', minWidth: '150px'}}>
                 <p style={pstyle}><b>{question.title}</b></p>
                 <p style={pstyle}>{question.description}</p>
-                </div>
+              </div>
             </div>
             </li>
           );
