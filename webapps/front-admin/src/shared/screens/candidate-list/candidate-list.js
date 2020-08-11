@@ -14,15 +14,26 @@ const CandidateList = () => {
   const [isNewCandidateModalOpen, setIsNewCandidateModalOpen] = useState(false);
   const interviewId = "5f2d3c851008eac5153b4601";
 
+  const getInterview = () => {
+    console.log("Calling api");
+    api({
+      endpoint: `/v1/position/${interviewId}`,
+    }).then((response) => {
+      setPosition(response.position);
+    });
+  };
+
+  useEffect(() => {
+    if (isLoaded && !isNewCandidateModalOpen)
+      {getInterview();
+    }
+  }, [isNewCandidateModalOpen]);
+
   useEffect(() => {
     if (!isLoaded)
     {
-      api({
-        endpoint: `/v1/position/${interviewId}`,
-      }).then((response) => {
-        setIsLoaded(true);
-        setPosition(response.position);
-      });
+      setIsLoaded(true);
+      getInterview();
     }
   });
 
