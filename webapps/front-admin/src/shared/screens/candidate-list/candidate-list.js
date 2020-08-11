@@ -15,7 +15,6 @@ const CandidateList = () => {
   const interviewId = "5f2d3c851008eac5153b4601";
 
   const getInterview = () => {
-    console.log("Calling api");
     api({
       endpoint: `/v1/position/${interviewId}`,
     }).then((response) => {
