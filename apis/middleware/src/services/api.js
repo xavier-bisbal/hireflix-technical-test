@@ -60,8 +60,9 @@ const getPosition = (positionId) => {
               id
               status
               createdAt
+              thumbnail
               candidate {
-                name                
+                name
               }
             }
           }
@@ -83,40 +84,19 @@ const getInterview = (interviewId) => {
         query getInterview($interviewId: String!) {
           interview(id: $interviewId) {
             id
-            status
-            createdAt
-            updatedAt
-            thumbnail
+            position {
+              name
+            }
             candidate {
               name
-              email
-              phone
             }
-            inviteSource
-            externalLink {
-              id
-              expires
-            }
-            timeToThink
-            timeToAnswer
-            notes
             questions {
               id
               title
               description
-              notes
-              answered
-              score
-              media {
-                thumbnail
-                url
-              }
               answer {
                 thumbnail
                 url
-                meta {
-                  duration
-                }
               }
             }
           }
