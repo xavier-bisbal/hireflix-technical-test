@@ -20,13 +20,11 @@ class NewCandidateModal extends React.Component {
   myChangeHandler = (event) => {
     let nam = event.target.name;
     let val = event.target.value;
-    console.log(val);
     this.setState({[nam]: val});
   }
 
   inviteCandidate = () => {
     const { onClose, interviewId } = this.props;
-    console.log(interviewId);
     api({
       endpoint: `/v1/invite/${interviewId}/${this.state.name}/${this.state.email}/${this.state.phone}`,
     }).then(() => {

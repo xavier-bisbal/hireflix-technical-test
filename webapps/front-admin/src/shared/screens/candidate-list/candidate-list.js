@@ -7,7 +7,6 @@ import Heading from 'react-bulma-components/lib/components/heading';
 import Tile from 'react-bulma-components/lib/components/tile';
 import CandidateCard from 'components/candidate-card';
 import NewCandidateModal from 'components/candidate-new';
-import config from 'config';
 
 const CandidateList = () => {
   const [position, setPosition] = useState({"name":"","interviews":[]});
